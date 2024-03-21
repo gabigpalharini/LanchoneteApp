@@ -136,7 +136,9 @@ function Cardapio(): React.JSX.Element {
                 <Image source={require('./assets/image/logotipo.png')} style={styles.logotipo} />
 
                 </View>
-                <View style={styles.alinhamentopesquisa} > 
+                
+            <ScrollView>
+            <View style={styles.alinhamentopesquisa} > 
                 <Image source={require('./assets/image/lupa.png')} style={styles.lupa} />
 
                 <TextInput
@@ -145,7 +147,6 @@ function Cardapio(): React.JSX.Element {
                 placeholderTextColor={'black'}/> 
         
         </View>
-            <ScrollView>
                 
                 <FlatList
                 showsVerticalScrollIndicator={false}
