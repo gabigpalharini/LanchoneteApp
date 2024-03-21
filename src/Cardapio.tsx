@@ -10,6 +10,9 @@ interface CardapioItem {
     adicionar:string,
 }
 
+function zap(){
+    Linking.openURL('https://github.com/gp0987gp/Pog_Burger');
+  }
  
 const dados: CardapioItem[] = [
     { id: "1", nome: "X-burguer", preço: "R$17,00", ingredientes: "pão, hamburguer, mussarela e presunto", image: require('./assets/image/xburguer.png'),adicionar:"adicionar +"},
@@ -181,15 +184,17 @@ function Cardapio(): React.JSX.Element {
                 source={require('./assets/image/profile.png')} style={styles.footerIcon}  /> 
             </TouchableOpacity>
 
+            <TouchableOpacity style={styles.zap} onPress={zap}>
+                <Image 
+                source={require('./assets/image/whats.png')} style={styles.footerIcon} />
+            </TouchableOpacity>
+
             <TouchableOpacity>
                 <Image 
                 source={require('./assets/image/pedido.png')} style={styles.footerIcon} />
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.zap}>
-                <Image 
-                source={require('./assets/image/whats.png')} style={styles.footerIcon} />
-            </TouchableOpacity>
+         
         </View>
         </View>
     );
@@ -290,9 +295,15 @@ const styles = StyleSheet.create({
         fontSize: 35,
         paddingHorizontal: 125
     },
-    zap:{
-
-    }
+    zap: {
+        position: 'absolute',
+        width: 40,
+        height: 140,
+        alignItems: 'center',
+        justifyContent: 'center',
+        right: 30,
+        bottom: 30,
+      },
     
 });
 
