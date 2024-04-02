@@ -54,20 +54,16 @@ const dados3: acompanhamentos[] = [
 ]
 
 const renderacompanhamentos = ({ item }: { item: acompanhamentos }) => (
-    <TouchableOpacity style={styles.item}>
+    <View style={styles.item}>
         <Text style={styles.nomeText}>{item.nome}</Text>
         <Text> ----------------------------------------------------------------------------- </Text>
         <Text style={styles.preçoText}>{item.preço}</Text>
         <Text>{item.ingredientes}</Text>   
         <View style={styles.imgAlign}>  
         <Image source={item.image} style={styles.image}/>
-        
-
-
-
         </View>
     <TouchableOpacity><Text style={styles.adicionar}>{item.adicionar}</Text></TouchableOpacity>
-</TouchableOpacity>
+</View>
 )
 
 interface Bebidas {
@@ -92,7 +88,7 @@ const dados2: Bebidas[] = [
 ]
 
 const renderItem = ({ item }: { item: CardapioItem }) => (
-    <TouchableOpacity style={styles.item}>
+    <View style={styles.item}>
         <Text style={styles.nomeText}>{item.nome}</Text>
         <Text> ----------------------------------------------------------------------------- </Text>
         <Text style={styles.preçoText}>{item.preço}</Text>
@@ -106,11 +102,11 @@ const renderItem = ({ item }: { item: CardapioItem }) => (
 
         </View>
     <TouchableOpacity><Text style={styles.adicionar}>{item.adicionar}</Text></TouchableOpacity>
-</TouchableOpacity>
+</View>
 )
 
 const renderBebidas = ({ item }: { item: Bebidas }) => (
-    <TouchableOpacity style={styles.item}>
+    <View style={styles.item}>
         <Text style={styles.nomeText}>{item.nome}</Text>
         <Text> ----------------------------------------------------------------------------- </Text>
         <Text style={styles.preçoText}>{item.preço}</Text>
@@ -123,7 +119,7 @@ const renderBebidas = ({ item }: { item: Bebidas }) => (
 
         </View>
     <TouchableOpacity><Text style={styles.adicionar}>{item.adicionar}</Text></TouchableOpacity>
-</TouchableOpacity>
+</View>
 )
 
 
