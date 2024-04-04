@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Image, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { launchCamera } from "react-native-image-picker";
+import { launchCamera, launchImageLibrary } from "react-native-image-picker";
+import axios from "axios";
 
 const CadastroProduto: React.FC = () => {
     const [produtos, setProdutos] = useState<Produto[]>([]);
@@ -10,7 +11,25 @@ const CadastroProduto: React.FC = () => {
     const [imagem, setImagem] = useState<any>('');
 
     const CadastrarProduto = async () => {
-     
+        try{
+         const formData = new FormData();
+         formData.append('nome', nome);
+         formData.append('preco', preco);
+         formData.append('ingredientes', ingredientes);
+         formData.append('imagem', {
+            uri: imagem,
+            type: 'imagem/jpeg',
+            name: new Date() + '.jpg'
+         });
+    
+         const response = await axios.post('http://10.137.11.228:8000/api/produtos', formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+         })
+        }catch(error) {
+          console.log(error)
+        }
     }
 
     const abrirCamera = () => {
@@ -34,6 +53,28 @@ const CadastroProduto: React.FC = () => {
         });
     }
 
+    const selecionarImagem = () => {
+        const options = {
+                mediaType: 'photo',
+                includeBase64: false,
+                maxHeight: 2000,
+                maxWidth: 2000,
+        };
+
+        launchImageLibrary(options, response => {
+            if(response.didCancel){
+                console.log('cancelado pelo usuario');
+              } else if(response.error){
+                  console.log('erro ao abrir a camera');
+              }else {
+                  let imageUri = response.uri || response.assets?.[0]?.uri;
+                  setImagem(imageUri);
+                  console.log(imageUri);
+              }
+          });
+      }
+    
+
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor="red" barStyle="light-content" />
@@ -48,7 +89,7 @@ const CadastroProduto: React.FC = () => {
                 <View style={styles.alinhamentoImagemSelecionada}>
                     {imagem ? <Image source={{ uri: imagem }} style={styles.imagemSelecionada} /> : null}
                 </View> 
-                <TouchableOpacity style={styles.imageButton}>
+                <TouchableOpacity style={styles.imageButton} onPress={selecionarImagem}>
                     <Text style={styles.imageButtonText}>Selecionar Imagem</Text>
                 </TouchableOpacity>
 
@@ -56,7 +97,7 @@ const CadastroProduto: React.FC = () => {
                     <Text style={styles.imageButtonText}>Tirar Foto</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity style={styles.button} onPress={CadastrarProduto}>
                     <Text style={styles.buttonText}>Cadastrar Produto</Text>
                 </TouchableOpacity>
             </View>
@@ -77,7 +118,7 @@ const styles = StyleSheet.create({
     headerText: {
         fontSize: 20,
         fontWeight: 'bold',
-        color: 'White',
+        color: 'white',
     },
     form: {
         padding: 10,
