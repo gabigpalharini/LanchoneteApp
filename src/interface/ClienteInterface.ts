@@ -3,6 +3,7 @@ interface Cliente{
     nome: string;
     telefone: string;
     endereco: number;
+    cpf: string;
     email: string;
     foto: any;
 }
