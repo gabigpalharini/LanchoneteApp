@@ -198,8 +198,10 @@ const styles = StyleSheet.create({
     imagemSelecionada: {
         width: 200,
         height: 200,
+        borderWidth:2,
+        borderColor: 'black',
         resizeMode: 'cover',
-        borderRadius: 150,
+        borderRadius: 1000,
         marginBottom: 10,
     },
     alinhamentoImagemSelecionada: {

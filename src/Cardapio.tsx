@@ -1,20 +1,22 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { FlatList, Image, ScrollView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View, YellowBox, Linking } from "react-native";
 
-interface CardapioItem {
+
+ interface Produtos {
     id: string;
     nome: string;
-    preço: string;
+    preco: string;
     ingredientes: string;
-    image: any,
-    adicionar:string,
+   // image: any;
+   // adicionar:string;
 }
-
+/*
 function zap(){
     Linking.openURL('https://github.com/gp0987gp/Pog_Burger');
   }
  
-const dados: CardapioItem[] = [
+const dados: Produtos[] = [
     { id: "1", nome: "X-burguer", preço: "R$17,00", ingredientes: "pão, hamburguer, mussarela e presunto", image: require('./assets/image/xburguer.png'),adicionar:"adicionar +"},
     { id: "2", nome: "X-calabresa", preço: "R$22,00", ingredientes: "pão, hamburguer, mussarela, presunto e calabresa", image:require('./assets/image/xcalabresa.png'),adicionar:"adicionar +" },
     { id: "3", nome: "X-ovo", preço: "R$17,00", ingredientes: "pão, hamburguer, mussarela, presunto e ovo", image: require('./assets/image/xovo.png') ,adicionar:"adicionar +"},
@@ -29,6 +31,7 @@ const dados: CardapioItem[] = [
    
    
 ];
+/*
 interface acompanhamentos {
     id: string;
     nome: string;
@@ -40,7 +43,7 @@ interface acompanhamentos {
 
 
 
-const dados3: acompanhamentos[] = [
+ const dados3: acompanhamentos[] = [
     { id: "9", nome: "Batata-frita", preço: "R$18,00", ingredientes: "batata frita", image: require('./assets/image/batata.png'),adicionar:"adicionar +" 
     },
     { id: "10", nome: "Batata-frita com cheddar e bacon", preço: "R$27,00", ingredientes: "batata-frita com fatias de bacon e cheddar cremoso", image: require('./assets/image/batatachedarebacon.png') ,adicionar:"adicionar +" 
@@ -85,27 +88,27 @@ const dados2: Bebidas[] = [
     {
         id: "3", nome: "Refrigerante", preço: "R$8,00", ingredientes: "Coca-cola, Guaraná e Pepsi ", image:  require('./assets/image/refri.png') ,adicionar:"adicionar +"
     },
-]
+] */
 
-const renderItem = ({ item }: { item: CardapioItem }) => (
+const renderItem = ({ item }: { item: Produtos }) => (
     <View style={styles.item}>
         <Text style={styles.nomeText}>{item.nome}</Text>
         <Text> ----------------------------------------------------------------------------- </Text>
-        <Text style={styles.preçoText}>{item.preço}</Text>
+        <Text style={styles.preçoText}>{item.preco}</Text>
        
-        <Text>{item.ingredientes}</Text>    
+        <Text>{item.ingredientes}  </Text>    
         <View style={styles.imgAlign}>  
-        <Image source={item.image} style={styles.image}/>
+       {/* <Image source={item.image} style={styles.image}/>*/}
         
 
 
 
         </View>
-    <TouchableOpacity><Text style={styles.adicionar}>{item.adicionar}</Text></TouchableOpacity>
+   {/* <TouchableOpacity><Text style={styles.adicionar}>{item.adicionar}</Text></TouchableOpacity>*/}
 </View>
 )
 
-const renderBebidas = ({ item }: { item: Bebidas }) => (
+ /*const renderBebidas = ({ item }: { item: Bebidas }) => (
     <View style={styles.item}>
         <Text style={styles.nomeText}>{item.nome}</Text>
         <Text> ----------------------------------------------------------------------------- </Text>
@@ -120,11 +123,36 @@ const renderBebidas = ({ item }: { item: Bebidas }) => (
         </View>
     <TouchableOpacity><Text style={styles.adicionar}>{item.adicionar}</Text></TouchableOpacity>
 </View>
-)
+)*/
 
 
 
 function Cardapio(): React.JSX.Element {
+    const [produtos, setProdutos] = useState<Produtos[]>([]);
+
+
+
+
+    useEffect(() => {
+        listarProdutos();
+    }, []);
+
+
+
+
+    const listarProdutos = async () => {
+        try {
+            const response = await axios.get('http://10.137.11.228:8000/api/produtos');
+            if (response.status === 200) {
+                setProdutos(response.data); 
+                
+                 console.log(response.data);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor="#FF8800" barStyle='light-content' />
@@ -134,6 +162,7 @@ function Cardapio(): React.JSX.Element {
                 </View>
                 
             <ScrollView>
+                
             <View style={styles.alinhamentopesquisa} > 
                 <Image source={require('./assets/image/lupa.png')} style={styles.lupa} />
 
@@ -146,11 +175,11 @@ function Cardapio(): React.JSX.Element {
                 
                 <FlatList
                 showsVerticalScrollIndicator={false}
-                    data={dados}
+                    data={produtos}
                     renderItem={renderItem}
                     keyExtractor={(item) => item.id}
                 />
-                <Text style={styles.Texto5}>Porções</Text>
+                {/*<Text style={styles.Texto5}>Porções</Text>
                 <FlatList
                 showsVerticalScrollIndicator={false}
                     data={dados3}
@@ -163,7 +192,7 @@ function Cardapio(): React.JSX.Element {
                     data={dados2}
                     renderItem={renderBebidas}
                     keyExtractor={(item) => item.id}
-                />
+    />*/}
                  
                 </ScrollView>
         <View style={styles.footer}>
@@ -181,7 +210,7 @@ function Cardapio(): React.JSX.Element {
                 source={require('./assets/image/profile.png')} style={styles.footerIcon}  /> 
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.zap} onPress={zap}>
+            <TouchableOpacity style={styles.zap} >
                 <Image 
                 source={require('./assets/image/whats.png')} style={styles.footerIcon} />
             </TouchableOpacity>

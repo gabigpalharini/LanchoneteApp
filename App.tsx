@@ -11,10 +11,10 @@ function App(): React.JSX.Element{
 
    
    // <ScrollViewExample />
-     // <Cardapio/>
+      <Cardapio/>
 
         // <CadastroProduto/>
-   <CadastroCliente/>
+   //<CadastroCliente/>
   );
 }
 
