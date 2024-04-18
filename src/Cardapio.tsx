@@ -19,7 +19,7 @@ const Cardapio = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://10.137.11.228:8000/api/produtos');
+                const response = await axios.get('http://10.137.11.228/api/produtos');
                 console.log('Dados recebidos da API:', response.data);
                 setDados(response.data);
             } catch (error) {

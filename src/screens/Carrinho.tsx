@@ -8,7 +8,7 @@ interface Produtos {
     nome: string;
     preco: string;
     ingredientes: string;
-    //  imagem: any;
+    imagem: any;
 
 }
 
@@ -39,7 +39,7 @@ const Carrinho = () => {
 
             <Text>{item.ingredientes}  </Text>
             <View style={styles.imgAlign}>
-                {/*<Image source={{uri:item.imagem}}style={styles.image}/>*/}
+                <Image source={{uri:item.imagem}}style={styles.image}/>
             </View>
         </View>
     );
