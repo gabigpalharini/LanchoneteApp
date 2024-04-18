@@ -8,11 +8,11 @@ interface Produtos {
     nome: string;
     preco: string;
     ingredientes: string;
-    imagem: any;
+    //  imagem: any;
 
 }
 
-const Cardapio = () => {
+const Carrinho = () => {
     const [dados, setDados] = useState<Produtos[]>([]);
     const [error, setError] = useState<string | null>(null);
 
@@ -30,50 +30,33 @@ const Cardapio = () => {
 
         fetchData();
     }, []);
-    const [count, setCount] = useState(0);
 
     const renderItem = ({ item }: { item: Produtos }) => (
-        <TouchableOpacity style={styles.item}
-            activeOpacity={0.7}
-            onPress={() => {
-                setCount(count + 1)
-            }}>
+        <View style={styles.item}>
             <Text style={styles.nomeText}>{item.nome}</Text>
             <Text> ----------------------------------------------------------------------------- </Text>
             <Text style={styles.preçoText}>{item.preco}</Text>
 
             <Text>{item.ingredientes}  </Text>
             <View style={styles.imgAlign}>
-                <Image source={item.imagem ? { uri: item.imagem } : require('./assets/image/xtudo.png')} style={styles.image} />
+                {/*<Image source={{uri:item.imagem}}style={styles.image}/>*/}
             </View>
-        </TouchableOpacity>
+        </View>
     );
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor="#FF8800" barStyle='light-content' />
             <View style={styles.header}>
-                <Image source={require('./assets/image/logotipo.png')} style={styles.logotipo} />
+                <Image source={require('../assets/image/logotipo.png')} style={styles.logotipo} />
 
             </View>
 
-            <View style={styles.alinhamentopesquisa} >
-                <Image source={require('./assets/image/lupa.png')} style={styles.lupa} />
+            <ScrollView>
 
-                <TextInput
-                    style={styles.input}
-                    placeholder="Pesquisar"
-                    placeholderTextColor={'black'} />
+               
 
-            </View>
-
-            <FlatList
-                showsVerticalScrollIndicator={false}
-                data={dados}
-                renderItem={renderItem}
-                keyExtractor={(item) => item.id}
-
-            />
-            {/*<Text style={styles.Texto5}>Porções</Text>
+                
+                {/*<Text style={styles.Texto5}>Porções</Text>
                 <FlatList
                 showsVerticalScrollIndicator={false}
                     data={dados3}
@@ -88,30 +71,30 @@ const Cardapio = () => {
                     keyExtractor={(item) => item.id}
     />*/}
 
-
+            </ScrollView>
             <View style={styles.footer}>
                 <TouchableOpacity>
-                    <Image source={require('./assets/image/home.png')} style={styles.footerIcon} />
-                </TouchableOpacity>
-
-                <TouchableOpacity>
-
-                    <Image source={require('./assets/image/menu.png')} style={styles.footerIcon} /><Text style={styles.carrinhoItem}>{count}</Text>
+                    <Image source={require('../assets/image/home.png')} style={styles.footerIcon} />
                 </TouchableOpacity>
 
                 <TouchableOpacity>
                     <Image
-                        source={require('./assets/image/profile.png')} style={styles.footerIcon} />
+                        source={require('../assets/image/menu.png')} style={styles.footerIcon} />
+                </TouchableOpacity>
+
+                <TouchableOpacity>
+                    <Image
+                        source={require('../assets/image/profile.png')} style={styles.footerIcon} />
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.zap} >
                     <Image
-                        source={require('./assets/image/whats.png')} style={styles.footerIcon} />
+                        source={require('../assets/image/whats.png')} style={styles.footerIcon} />
                 </TouchableOpacity>
 
                 <TouchableOpacity>
                     <Image
-                        source={require('./assets/image/pedido.png')} style={styles.footerIcon} />
+                        source={require('../assets/image/pedido.png')} style={styles.footerIcon} />
                 </TouchableOpacity>
 
 
@@ -225,16 +208,7 @@ const styles = StyleSheet.create({
         right: 30,
         bottom: 30,
     },
-    carrinhoItem: {
-        backgroundColor: 'red',
-        borderRadius: 100,
-        textAlign: 'center',
-        width: 20,
-        position: 'absolute',
-        bottom: 18,
-        right: 13
-    }
 
 });
 
-export default Cardapio;
+export default Carrinho;
